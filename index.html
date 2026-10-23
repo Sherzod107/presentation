@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Профессии будущего</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef0ff;--ink:#14162e;--muted:#5a5f80;--card:rgba(255,255,255,.72);--line:rgba(20,22,46,.1);
+  --brand:#5b4bff;--brand2:#00b89c;--accent:#ffb703;--on-brand:#fff;--g1:rgba(91,75,255,.28);--g2:rgba(0,184,156,.22);--g3:rgba(255,183,3,.2);
+  --modal:#ffffff;--shadow:0 10px 30px rgba(40,40,120,.12);
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c0d1f;--ink:#f1f2ff;--muted:#a3a8d0;--card:rgba(255,255,255,.06);--line:rgba(255,255,255,.13);
+  --brand:#9387ff;--brand2:#2de2c4;--on-brand:#10102a;--g1:rgba(110,95,255,.38);--g2:rgba(45,226,196,.2);--g3:rgba(255,183,3,.14);
+  --modal:#17183a;--shadow:0 10px 30px rgba(0,0,0,.4);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c0d1f;--ink:#f1f2ff;--muted:#a3a8d0;--card:rgba(255,255,255,.06);--line:rgba(255,255,255,.13);
+  --brand:#9387ff;--brand2:#2de2c4;--on-brand:#10102a;--g1:rgba(110,95,255,.38);--g2:rgba(45,226,196,.2);--g3:rgba(255,183,3,.14);
+  --modal:#17183a;--shadow:0 10px 30px rgba(0,0,0,.4);color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{color:var(--ink);font:400 17px/1.55 Onest,system-ui,"Segoe UI",Arial,sans-serif;
+  background:radial-gradient(55% 45% at 8% 0%,var(--g1),transparent),radial-gradient(50% 50% at 100% 100%,var(--g2),transparent),radial-gradient(35% 30% at 90% 5%,var(--g3),transparent),var(--bg);background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:20}
+h1,h2,h3{font-family:Unbounded,Onest,sans-serif;margin:0;line-height:1.15}
+h1{font-size:clamp(32px,6vw,72px);font-weight:700;max-width:14ch;letter-spacing:-.02em}
+h2{font-size:clamp(24px,3.6vw,42px);font-weight:700;margin-bottom:10px;max-width:22ch}
+h3{font-size:17px;font-weight:500;margin-bottom:6px}
+p{margin:0 0 10px;max-width:60ch}
+.muted{color:var(--muted)}
+nav{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:15;display:flex;gap:4px;padding:6px;border-radius:99px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:var(--shadow);max-width:calc(100% - 24px);overflow-x:auto}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;padding:7px 13px;border-radius:99px;white-space:nowrap;transition:background .2s,color .2s}
+nav a:hover{color:var(--ink)}
+nav a.on{background:var(--brand);color:var(--on-brand)}
+#prog{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:3px;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2));z-index:21;transition:width .25s}
+main{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
+section{min-height:100%;scroll-snap-align:start;padding:100px clamp(20px,6vw,96px) 48px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:18px}
+.card{all:unset;box-sizing:border-box;display:block;cursor:pointer;position:relative;padding:22px;border-radius:22px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:var(--shadow);transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--brand)}
+.card:focus-visible,.btn:focus-visible,nav a:focus-visible,.x:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.card .ic{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;margin-bottom:14px;font-size:22px;background:linear-gradient(135deg,var(--brand),var(--brand2))}
+.card .more{position:absolute;right:16px;top:16px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:var(--muted);font-size:18px;line-height:1}
+.card small{color:var(--muted);font-size:15px;line-height:1.4;display:block}
+.card.win{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent),var(--shadow)}
+.badge{display:inline-block;margin-bottom:10px;padding:3px 12px;border-radius:99px;background:var(--accent);color:#2b2100;font-weight:600;font-size:13px}
+.btn{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;font:600 16px Onest,sans-serif;background:var(--brand);color:var(--on-brand);box-shadow:0 8px 22px color-mix(in srgb,var(--brand) 40%,transparent);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.btn[aria-pressed="true"]{background:var(--brand2);color:#06241f}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.chip{display:inline-block;padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);font-size:14px;font-weight:500}
+.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:36px;align-items:center}
+.sub{font-size:19px;color:var(--muted);margin-top:18px}
+.stack{display:grid;gap:14px}
+.bar{margin-bottom:16px}
+.bar .l{display:flex;justify-content:space-between;gap:12px;font-size:15px;margin-bottom:6px}
+.bar .t{height:14px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.on-screen .bar i{width:var(--w)}
+.panel{padding:24px;border-radius:24px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.note{font-size:14px;color:var(--muted)}
+dialog{border:0;padding:0;background:transparent;color:var(--ink);max-width:min(560px,calc(100% - 28px));width:100%;margin:auto;overflow:visible}
+dialog::backdrop{background:rgba(8,8,30,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+dialog[open]{animation:pop .28s cubic-bezier(.2,.9,.3,1.2)}
+dialog[open]::backdrop{animation:fade .25s}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.sheet{position:relative;background:var(--modal);border:1px solid var(--line);border-radius:28px;padding:30px 28px 26px;box-shadow:0 30px 80px rgba(0,0,0,.4);max-height:calc(100vh - 60px);overflow:auto}
+.sheet::before{content:"";display:block;height:6px;width:64px;border-radius:9px;margin-bottom:18px;background:linear-gradient(90deg,var(--brand),var(--brand2))}
+.sheet h3{font-size:22px;margin-bottom:14px;padding-right:40px}
+.sheet p{margin-bottom:12px}
+.sheet ul{margin:0 0 12px;padding-left:20px}
+.sheet li{margin-bottom:6px}
+.x{all:unset;cursor:pointer;position:absolute;right:16px;top:16px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);font-size:20px}
+.x:hover{background:var(--brand);color:var(--on-brand)}
+@media(max-width:780px){.hero{grid-template-columns:1fr}section{padding-top:92px}}
+@media(prefers-reduced-motion:reduce){main{scroll-behavior:auto}dialog[open],dialog[open]::backdrop{animation:none}.bar i,.card{transition:none}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <a href="#s1" class="on">Старт</a><a href="#s2">Понятие</a><a href="#s3">Проблема</a><a href="#s4">Опрос</a><a href="#s5">Анализ</a><a href="#s6">Решение</a><a href="#s7">Инициатива</a>
+</nav>
+<main id="deck">
+<section id="s1"><div class="hero"><div><h1>Профессии будущего</h1>
+<p class="sub">Проектная работа СОР-1, 9 класс. «Воспитание» и «Основы государства и права». Активный гражданин – инициатор изменений</p>
+<div class="row"><button class="btn" data-t="Наша команда" data-d="Шавкатов Шерзод|Собиржонов Самир|Гуломиддинов Жасур|Усмонов Мухаммадали|Миршохидов Миржалил|Школа № 160, 9Б класс|Шерзод: координатор и презентатор.|Самир: аналитик.|Жасур: исследователь.|Мухаммадали: координатор опроса.|Миржалил: создатель инициативы.">Наша команда</button>
+<button class="btn ghost" data-t="Исследовательский вопрос" data-d="Как ученики 9 класса могут помочь сверстникам узнать о профессиях будущего и осознанно выбрать свой путь, действуя в рамках закона?|Тема выбрана командой самостоятельно.">Наш вопрос</button></div>
+<div class="row" style="margin-top:18px"><span class="chip">Школа № 160</span><span class="chip">9Б класс</span><span class="chip">Шавкатов Шерзод</span><span class="chip">Собиржонов Самир</span><span class="chip">Гуломиддинов Жасур</span><span class="chip">Усмонов Мухаммадали</span><span class="chip">Миршохидов Миржалил</span></div></div>
+<div class="stack"><button class="card" data-t="О чём проект" data-d="Мини-исследование и гражданская инициатива.|Мы изучаем, что ученики знают о профессиях будущего, анализируем проблему с точки зрения права и воспитания и предлагаем законное решение."><span class="ic">🎯</span><h3>О чём проект</h3><small>Нажмите, чтобы узнать</small><span class="more">+</span></button>
+<button class="card" data-t="Как смотреть презентацию" data-d="Листайте колесом мыши или стрелками ↑ ↓.|Нажимайте на карточки: в окне откроются подробности.|Esc или клик вне окна закрывает его."><span class="ic">👆</span><h3>Как смотреть презентацию</h3><small>Карточки открываются в окне</small><span class="more">+</span></button></div></div></section>
+<section id="s2"><h2>Кто такой активный гражданин</h2><p class="muted">Человек, который знает свои права и обязанности и законным путём решает проблемы школы и махалли. Нажмите на качество.</p><div class="grid"><button class="card" data-t="Инициативность" data-d="Не ждёт, пока кто-то организует профориентацию.|Пример: предложил классу пригласить специалиста на встречу."><span class="ic">🚀</span><h3>Инициативность</h3><small>Действует первым</small><span class="more">+</span></button><button class="card" data-t="Ответственность" data-d="Серьёзно относится к своему будущему и обязанностям.|Пример: изучает профессию по надёжным источникам, а не по слухам."><span class="ic">🧭</span><h3>Ответственность</h3><small>Отвечает за выбор и слова</small><span class="more">+</span></button><button class="card" data-t="Знание права" data-d="Знает право на образование и свободный выбор профессии.|Пример: согласовал встречу со специалистами с администрацией школы."><span class="ic">⚖️</span><h3>Знание права</h3><small>Законные способы</small><span class="more">+</span></button><button class="card" data-t="Неравнодушие" data-d="Замечает, что сверстникам не хватает информации, и помогает.|Пример: поделился найденными материалами с одноклассниками."><span class="ic">💛</span><h3>Неравнодушие</h3><small>Видит и откликается</small><span class="more">+</span></button><button class="card" data-t="Сотрудничество" data-d="Слушает других, уважает разные мнения, работает в команде.|Пример: учёл интересы одноклассников при составлении плана."><span class="ic">🤝</span><h3>Сотрудничество</h3><small>Вместе сильнее</small><span class="more">+</span></button></div></section>
+<section id="s3"><h2>Проблема, которую мы выбрали</h2><p class="muted">Многие ученики не знают, какие профессии будут востребованы, и не понимают, как к ним готовиться.</p><div class="grid"><button class="card" data-t="Что происходит" data-d="Старшеклассники слышат о новых профессиях, но не знают, чем они занимаются и какие знания нужны.|Выбор часто делают по совету знакомых или по моде."><span class="ic">🔍</span><h3>Что происходит</h3><small>Описание ситуации</small><span class="more">+</span></button><button class="card" data-t="Почему это важно" data-d="От осознанного выбора зависит будущее ученика, а вместе с ним и развитие махалли и страны.|Новые профессии требуют подготовки уже сегодня."><span class="ic">🏫</span><h3>Почему это важно</h3><small>Значение для школы и махалли</small><span class="more">+</span></button><button class="card" data-t="Профессии будущего" data-d="Специалист по искусственному интеллекту|Аналитик данных|Робототехник|Специалист по кибербезопасности|Инженер зелёной энергетики|Биотехнолог|Разработчик мобильных приложений"><span class="ic">🤖</span><h3>Профессии будущего</h3><small>Примеры</small><span class="more">+</span></button><button class="card" data-t="Наша роль" data-d="Мы не ждём указаний, а изучаем проблему и предлагаем решение, которое можем выполнить сами."><span class="ic">🙋</span><h3>Наша роль</h3><small>Что можем сделать мы</small><span class="more">+</span></button></div></section>
+<section id="s4"><h2>Что показал опрос</h2><p class="muted">Анонимный опрос, 7 вопросов, 40 учеников. Личные данные не собирались.</p><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))"><div class="panel" id="bars"><div class="bar"><div class="l"><span>Назвали хотя бы 3 профессии будущего</span><b>35%</b></div><div class="t"><i style="--w:35%"></i></div></div><div class="bar"><div class="l"><span>Хотят узнать о них больше</span><b>80%</b></div><div class="t"><i style="--w:80%"></i></div></div><div class="bar"><div class="l"><span>Знают, где получить нужные навыки</span><b>30%</b></div><div class="t"><i style="--w:30%"></i></div></div><div class="bar"><div class="l"><span>Готовы прийти на встречу со специалистами</span><b>75%</b></div><div class="t"><i style="--w:75%"></i></div></div><p class="note">Цифры условные. Подставьте результаты своего опроса.</p></div><div class="stack"><button class="card" data-t="Вывод 1" data-d="Большинство хочет узнать о профессиях будущего, но мало кто может их назвать.|Значит, ученикам не хватает доступной информации."><span class="ic">📊</span><h3>Вывод 1</h3><small>Интерес есть, знаний мало</small><span class="more">+</span></button><button class="card" data-t="Вывод 2" data-d="Большинство готово прийти на встречу со специалистами.|Значит, идея мероприятия найдёт отклик."><span class="ic">✅</span><h3>Вывод 2</h3><small>Готовы к встречам</small><span class="more">+</span></button><button class="btn ghost" data-t="Вопросы опроса" data-d="Какие профессии будущего вы можете назвать?|Хотите ли вы узнать о них больше?|Откуда вы узнаёте о профессиях?|Знаете ли вы, где получить нужные навыки?|Считаете ли вы, что вправе свободно выбирать профессию?|Готовы ли вы прийти на встречу со специалистами?|Какие профессии вам интересны?">Показать вопросы опроса</button></div></div></section>
+<section id="s5"><h2>Правовой и воспитательный анализ</h2><div class="grid"><button class="card" data-t="Право и обязанность" data-d="Каждый вправе получать образование и свободно выбирать профессию.|Каждый обязан добросовестно учиться и уважать права других.|Укажите статьи Конституции и законов по вашему учебнику."><span class="ic">📜</span><h3>Право и обязанность</h3><small>Что говорит закон</small><span class="more">+</span></button><button class="card" data-t="Причина проблемы" data-d="В школе мало встреч с практиками.|Информация в интернете разрознена, а надёжность источников ученики не проверяют."><span class="ic">🧩</span><h3>Причина проблемы</h3><small>Почему так происходит</small><span class="more">+</span></button><button class="card" data-t="Последствия" data-d="Ошибочный выбор профессии и потерянное время.|Меньше специалистов в новых отраслях для своей махалли и страны."><span class="ic">⚠️</span><h3>Последствия</h3><small>К чему это приводит</small><span class="more">+</span></button><button class="card" data-t="Наш вывод" data-d="Право на выбор профессии работает, когда у человека есть знания и ответственность.|Активный гражданин помогает сверстникам получить эти знания."><span class="ic">💡</span><h3>Наш вывод</h3><small>Главная мысль</small><span class="more">+</span></button></div></section>
+<section id="s6"><h2>Варианты решения</h2><p class="muted">Критерии выбора: законность, полезность, возможность реализации.</p><div class="grid"><button class="card" data-t="А. Стенд и плакаты" data-d="Законность: да.|Полезность: средняя.|Реализуемость: высокая.|Информация полезна, но общение со специалистами она не заменит."><span class="ic">🖼️</span><h3>А. Стенд и плакаты</h3><small>Информация в школе</small><span class="more">+</span></button><button class="card win" data-t="Б. Неделя профессий будущего" data-d="Законность: да, проводим с согласия администрации.|Полезность: высокая.|Реализуемость: высокая.|Не нарушает права других и нам по силам. Мы выбрали этот вариант."><span class="badge">Наш выбор</span><span class="ic">🚀</span><h3>Б. Неделя профессий будущего</h3><small>Встречи и мастер-классы</small><span class="more">+</span></button><button class="card" data-t="В. Навязать выбор профессии" data-d="Законность: нет, право на свободный выбор принадлежит каждому.|Полезность: низкая.|Реализуемость: низкая.|Такой подход нарушает права и вызовет конфликты."><span class="ic">🚫</span><h3>В. Навязать выбор профессии</h3><small>Единый список для всех</small><span class="more">+</span></button></div></section>
+<section id="s7"><h2>Инициатива активного гражданина</h2><div class="grid"><button class="card" data-t="Кто" data-d="Шавкатов Шерзод, Собиржонов Самир, Гуломиддинов Жасур, Усмонов Мухаммадали, Миршохидов Миржалил и ученики 9Б класса.|Классный руководитель и администрация школы № 160."><span class="ic">👥</span><h3>Кто</h3><small>Участники</small><span class="more">+</span></button><button class="card" data-t="Что" data-d="Неделя профессий будущего: 2–3 встречи со специалистами, мастер-класс по основам программирования или робототехники, стенд с материалами."><span class="ic">📝</span><h3>Что</h3><small>Действия</small><span class="more">+</span></button><button class="card" data-t="Когда" data-d="Подготовка: ноябрь 2026.|Неделя профессий: декабрь 2026."><span class="ic">📅</span><h3>Когда</h3><small>Сроки</small><span class="more">+</span></button><button class="card" data-t="Как" data-d="Согласуем план с директором.|Пригласим специалистов из махалли и родителей.|Расскажем о неделе в школьном чате.|Соберём отзывы участников."><span class="ic">🛠️</span><h3>Как</h3><small>Порядок реализации</small><span class="more">+</span></button></div><p style="margin-top:26px"><b>Способствует ли активная гражданская позиция позитивным изменениям?</b></p><div class="row" style="margin-top:6px" id="vote"><button class="btn ghost" data-t="Да" data-d="Люди решают проблему сами, не ожидая помощи со стороны.|Действия в рамках закона защищают права других.|Пример одной команды вдохновляет сверстников.">Да</button><button class="btn ghost" data-t="Частично" data-d="Инициатива полезна, но одной её мало.|Нужна поддержка администрации, родителей и специалистов.|Результат зависит от законности и постоянства действий.">Частично</button><button class="btn ghost" data-t="Нет" data-d="Без поддержки одни ученики не изменят многое.|Часть проблем решается только государством.|Нужно привести свои аргументы и примеры.">Нет</button><button class="btn" data-t="Рефлексия" data-d="Шавкатов Шерзод: организовал работу команды и представил проект. Моё будущее действие – помогать младшим выбирать кружки.|Собиржонов Самир: подсчитал результаты опроса. Моё будущее действие – делиться проверенной информацией о профессиях.|Гуломиддинов Жасур: изучил источники о профессиях будущего. Моё будущее действие – проводить мини-лекции для класса.|Усмонов Мухаммадали: подготовил и провёл опрос. Моё будущее действие – собирать мнения сверстников о школьных проектах.|Миршохидов Миржалил: разработал план Недели профессий. Моё будущее действие – организовать встречу со специалистом из махалли.">Рефлексия участников</button></div></section>
+</main>
+ 
+<dialog id="dlg" aria-labelledby="dt">
+  <div class="sheet">
+    <button class="x" id="close" aria-label="Закрыть">×</button>
+    <h3 id="dt"></h3>
+    <div id="db"></div>
+  </div>
+</dialog>
+ 
+<script>
+(function(){
+  var deck=document.getElementById('deck'),secs=[].slice.call(deck.querySelectorAll('section')),links=[].slice.call(document.querySelectorAll('nav a')),prog=document.getElementById('prog');
+  var dlg=document.getElementById('dlg'),dt=document.getElementById('dt'),db=document.getElementById('db');
+  function cur(){var t=deck.scrollTop+deck.clientHeight/2,i=0;secs.forEach(function(s,k){if(s.offsetTop<=t)i=k});return i}
+  function go(i){i=Math.max(0,Math.min(secs.length-1,i));secs[i].scrollIntoView()}
+  function upd(){var c=cur();links.forEach(function(a,k){a.classList.toggle('on',k===c)});
+    prog.style.width=((c+1)/secs.length*100)+'%';secs.forEach(function(s,k){s.classList.toggle('on-screen',k===c)})}
+  deck.addEventListener('scroll',upd);upd();
+  document.addEventListener('keydown',function(e){
+    if(dlg.open)return;
+    if(['ArrowDown','PageDown'].indexOf(e.key)>-1){e.preventDefault();go(cur()+1)}
+    if(['ArrowUp','PageUp'].indexOf(e.key)>-1){e.preventDefault();go(cur()-1)}
+  });
+  links.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();document.querySelector(a.getAttribute('href')).scrollIntoView()})});
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('[data-t]');if(!b)return;
+    var parts=b.getAttribute('data-d').split('|');
+    dt.textContent=b.getAttribute('data-t');
+    var list=parts.length>2&&parts.every(function(p){return p.length<90});
+    db.innerHTML=list?'<ul>'+parts.map(function(p){return '<li>'+esc(p)+'</li>'}).join('')+'</ul>':parts.map(function(p){return '<p>'+esc(p)+'</p>'}).join('');
+    if(b.parentNode.id==='vote'&&b.textContent!=='Рефлексия participants'){[].forEach.call(b.parentNode.children,function(x){x.setAttribute('aria-pressed',x===b&&b.textContent.indexOf('Рефлексия')<0)})}
+    dlg.showModal();
+  });
+  document.getElementById('close').addEventListener('click',function(){dlg.close()});
+  dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
+})();
+</script>
+</body>
+</html>
+ 
